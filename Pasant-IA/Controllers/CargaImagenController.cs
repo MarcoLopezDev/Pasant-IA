@@ -23,9 +23,9 @@ namespace Pasant_IA.Controllers
         {
             string nombreImagen = imagen.FileName;
 
-            string path = await this.helperUpload.UploadFilesAsync(imagen, nombreImagen, Providers.Folders.Uploads);
+            var blob = new UploadBlobWeb();
 
-            ViewBag.Mensaje = "Fichero " + nombreImagen + " subido a " + path;
+            blob.Main(imagen);
 
             return View();
         

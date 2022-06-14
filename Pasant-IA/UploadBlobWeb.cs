@@ -10,24 +10,13 @@ namespace Pasant_IA
         public async void Main(IFormFile imagen)
         {
             BlobServiceClient blobServiceClient = new BlobServiceClient(connectionString);
-            BlobContainerClient containerClient = blobServiceClient.CreateBlobContainer(containerName);
+            BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
+            //containerClient.CreateIfNotExistsAsync();
 
-            /*var files = Directory.GetFiles(imagen);
-            foreach (var file in files)
+            using(var stream = imagen.OpenReadStream())
             {
-                using (MemoryStream stream = new MemoryStream(File.ReadAllBytes(file)))
-                {
-                    containerClient.UploadBlob(Path.GetFileName(file), stream);
-                }
-
-            const BlobClient = containerClient.GetBlobClient(imagen);
-
-
-                Console.WriteLine(file + "Uploaded!");
-            }*/
-            Console.Read();
+                containerClient.UploadBlob("prueba.png", stream);
+            }
         }
-
-
     }
 }
